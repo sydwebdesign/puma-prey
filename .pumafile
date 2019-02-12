@@ -1,11 +1,11 @@
 {
-  "Version": "1.2",
+  "Version": "1.2.1",
+  "LogLevel": "Trace",
   "GeneralSettings": {
     "DataflowAnalysisEnabled": true,
     "DataflowAnalysisReportIndeterminates": false,
     "ProductionConfigurationTransform": "Release"
   },
-  "LogLevel": "Error",
   "RuleOptions": [
     {
       "Id": "SEC0001",
@@ -239,6 +239,20 @@
       "Enabled": true
     },
     {
+      "Id": "SEC0033",
+      "Name": "Insecure HTTP Cookie Transport",
+      "RiskRating": "Medium",
+      "Severity": "Warning",
+      "Enabled": true
+    },
+    {
+      "Id": "SEC0034",
+      "Name": "HTTP Cookie Accessible via Script",
+      "RiskRating": "Medium",
+      "Severity": "Warning",
+      "Enabled": true
+    },
+    {
       "Id": "SEC0100",
       "Name": "Raw Inline Expression",
       "RiskRating": "High",
@@ -402,6 +416,15 @@
       "Type": "Unirest",
       "Property": "*",
       "Method": "*"
+    },
+    {
+      "RuleIds": [],
+      "Flag": "Web",
+      "Syntax": "InvocationExpressionSyntax",
+      "Namespace": "Puma.Prey.Common",
+      "Type": "Report",
+      "Property": "*",
+      "Method": "GetReport"
     }
   ],
   "CustomCleanseMethods": [

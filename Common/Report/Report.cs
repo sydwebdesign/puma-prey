@@ -22,9 +22,9 @@ namespace Puma.Prey.Common
 
         public Dictionary<string, string> MetaData;
 
-        public static Report GetReport(Guid userId)
+        public static List<Report> GetReport(Guid userId)
         {
-            return RestClient.Get<Report>($"report/{userId}");
+            return new List<Report>(); //RestClient.Get<Report>($"report/{userId}");
         }
 
         public static Report GetReportFromProvider(Guid userId)

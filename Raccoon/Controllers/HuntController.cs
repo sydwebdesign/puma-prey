@@ -75,10 +75,25 @@ namespace Puma.Prey.Raccoon.Controllers
         [HttpPost]
         public ActionResult Download(string fileName)
         {
-            if (!Validator.IsValidFilePath(fileName))
-                return new HttpNotFoundResult();
 
-            return new FilePathResult("C:\\temp\\downloads\\" + fileName, "application/octet-stream");
+            ////Get report data for the current user
+            Guid userId = new Guid(User.Identity.GetUserId());
+            var reportItems = Report.GetReport(userId);
+
+            ////Mark the report as generated
+            //using (var context = new RabbitDBContext())
+            //{
+            //    foreach (Report item in reportItems)
+            //    {
+            //        string query = string.Format("UPDATE Report SET Status = 1 WHERE Name = {0}", item.Name);
+            //        context.Database.ExecuteSqlCommand(query);
+            //    }
+            //}
+
+            //if (!Validator.IsValidFilePath(fileName))
+            //    return new HttpNotFoundResult();
+
+            return new FilePathResult("C:\\temp\\downloads\\" + reportItems.ToString(), "application/octet-stream");
         }
 
         [HttpGet]
@@ -88,7 +103,7 @@ namespace Puma.Prey.Raccoon.Controllers
             Guid userId = new Guid(User.Identity.GetUserId());
             Report report = Report.GetReportFromProvider(userId);
 
-            return new FilePathResult("C:\\share\\reports\\" + report.Name, "application/octet-stream");
+            return new FilePathResult("C:\\share\\reports\\" + report.Name, "application/octet-stream"); 
         }
     }
 }
